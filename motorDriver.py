@@ -14,7 +14,7 @@ class MotorDriver:
         self.pinIN1 = pyb.Pin (in1pin, pyb.Pin.OUT_PP)
         self.pinIN2 = pyb.Pin (in2pin, pyb.Pin.OUT_PP)
         #must declare pyb.Pin.board.en_pin in main
-        self.tim = pyb.Timer (timer, freq=2000)
+        self.tim = pyb.Timer (timer, freq=20000)
         self.ch1 = self.tim.channel (1, pyb.Timer.PWM, pin=self.pinIN1)
         self.ch2 = self.tim.channel (2, pyb.Timer.PWM, pin=self.pinIN2)
         
