@@ -1,3 +1,14 @@
+'''!
+@file motorDriver.py
+File contains the necessary code to enable and run a motor using PWM.
+Pin numbers and timer are parameterized so multiple motors can be run at the same time.
+
+@author Lucas Sandsor
+@author Jack Barone
+@author Jack Meyers
+@date 11-Jan-2022
+'''
+
 import pyb
 class MotorDriver:
     '''!
@@ -7,7 +18,10 @@ class MotorDriver:
         '''!
         Creates a motor driver by initializing GPIO
         pins and turning motor off
-        @param (do later)
+        @param en_pin The enable pin for the motor
+        @param in1pin Input pin 1 for driving the motor
+        @param in2pin Input pin 2 for driving the motor
+        @param timer The number of the timer to use (channels 1 and 2) 
         '''
         print("Creating a motor driver")
         self.pinEN = pyb.Pin (en_pin, pyb.Pin.OUT_PP)
@@ -24,7 +38,7 @@ class MotorDriver:
         This method sets duty cycle of motor to a certain
         level. Positive cuase torque in one direction and
         negative causes torque in another
-        @param self(do later)
+        @param level The duty cycle level to run the motor at (-100 to 100)
         '''
         print ('Setting duty cycle to ' + str (level))
         self.pinEN.value(255)
