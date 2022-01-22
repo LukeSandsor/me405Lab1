@@ -15,8 +15,9 @@ import time
 
    
 if __name__ == "__main__":
-    '''!
-    
+    '''! Initialize motor and encoder drivers and then run the motor
+    back and forth to see if the drivers and their methods were working
+    properly.
     '''
     moe = motorDriver.MotorDriver(pyb.Pin.board.PA10,
         pyb.Pin.board.PB4, pyb.Pin.board.PB5, 3)
