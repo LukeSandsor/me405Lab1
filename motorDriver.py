@@ -40,13 +40,18 @@ class MotorDriver:
         negative causes torque in another
         @param level The duty cycle level to run the motor at (-100 to 100)
         '''
-        print ('Setting duty cycle to ' + str (level))
-        self.pinEN.value(255)
-        if(level > 0):
+        if(abs(level) > 100):
+            print('Invalid duty cycle')
             self.ch2.pulse_width_percent (0)
-            self.ch1.pulse_width_percent (abs(level))
-        else:
             self.ch1.pulse_width_percent (0)
-            self.ch2.pulse_width_percent (abs(level))
+        else:
+            print ('Setting duty cycle to ' + str (level))
+            self.pinEN.value(255)
+            if(level > 0):
+                self.ch2.pulse_width_percent (0)
+                self.ch1.pulse_width_percent (abs(level))
+            else:
+                self.ch1.pulse_width_percent (0)
+                self.ch2.pulse_width_percent (abs(level))
 
             
