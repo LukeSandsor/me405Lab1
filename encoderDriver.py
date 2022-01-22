@@ -1,7 +1,7 @@
 """!
 @file encoder.py
 This file contains all driver functions for the encoder by scanning
-
+ticks of the encoder
 @author Lucas Sandsor
 @author Jack Barone
 @author Jackson Myers
@@ -43,7 +43,8 @@ class EncoderDriver:
         between the last counted number and the counted number at
         run time. If there is overflow, the differential will be
         greater or less than the period (-self.period/2 to self.period/2
-        is equals to one period) and the code will adjust the number
+        is equals to one period) and the code will adjust the
+        number accordingly
         '''
         self.count = self.tim.counter()
         self.delta = self.count - self.lastCount
@@ -56,7 +57,6 @@ class EncoderDriver:
         self.position += self.delta
         self.lastCount = self.count
             
-        
     def read(self):
         '''!
         Reads the current position of the motor using the
@@ -72,7 +72,7 @@ class EncoderDriver:
         Resets the position of the encoder to zero
         '''
         print("Encoder Position reset to zero!")
-        self.position = 0
+        self.position = 0s
         return 0
         
 
