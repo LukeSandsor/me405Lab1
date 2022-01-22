@@ -1,14 +1,3 @@
-'''!
-@file motorDriver.py
-File contains the necessary code to enable and run a motor using PWM.
-Pin numbers and timer are parameterized so multiple motors can be run at the same time.
-
-@author Lucas Sandsor
-@author Jack Barone
-@author Jack Meyers
-@date 11-Jan-2022
-'''
-
 import pyb
 class MotorDriver:
     '''!
@@ -18,10 +7,10 @@ class MotorDriver:
         '''!
         Creates a motor driver by initializing GPIO
         pins and turning motor off
-        @param en_pin The enable pin for the motor
-        @param in1pin Input pin 1 for driving the motor
-        @param in2pin Input pin 2 for driving the motor
-        @param timer The number of the timer to use (channels 1 and 2) 
+        @param en_pin    The enable pin for driving the motor
+        @param in1pin    The input pin for the motor to spin forwards
+        @param in2pin    The input pin for the motor to spin backwards
+        @param timer    The timer whose channels we use for controlling the motor
         '''
         print("Creating a motor driver")
         self.pinEN = pyb.Pin (en_pin, pyb.Pin.OUT_PP)
@@ -38,15 +27,22 @@ class MotorDriver:
         This method sets duty cycle of motor to a certain
         level. Positive cuase torque in one direction and
         negative causes torque in another
-        @param level The duty cycle level to run the motor at (-100 to 100)
+        If the duty cycle is out of the acceptable range, it
+        will prin
+        @param level    This is the duty cycle/speed on the motor
         '''
-        print ('Setting duty cycle to ' + str (level))
-        self.pinEN.value(255)
-        if(level > 0):
+        if(abs(level) > 100):
+            print('Invalid duty cycle')
             self.ch2.pulse_width_percent (0)
-            self.ch1.pulse_width_percent (abs(level))
-        else:
             self.ch1.pulse_width_percent (0)
-            self.ch2.pulse_width_percent (abs(level))
+        else:
+            print ('Setting duty cycle to ' + str (level))
+            self.pinEN.value(255)
+            if(level > 0):
+                self.ch2.pulse_width_percent (0)
+                self.ch1.pulse_width_percent (abs(level))
+            else:
+                self.ch1.pulse_width_percent (0)
+                self.ch2.pulse_width_percent (abs(level))
 
             
